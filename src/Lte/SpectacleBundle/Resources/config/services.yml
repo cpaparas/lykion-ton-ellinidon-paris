@@ -1,0 +1,7 @@
+parameters:
+#    lte_spectacle.example.class: Lte\SpectacleBundle\Example
+
+services:
+#    lte_spectacle.example:
+#        class: %lte_spectacle.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

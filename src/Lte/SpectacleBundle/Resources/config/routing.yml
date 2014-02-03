@@ -1,0 +1,15 @@
+lte_spectacle_homepage:
+    pattern:  /spectacle
+    defaults: { _controller: LteSpectacleBundle:Default:index }
+
+lte_spectacle_create:
+    pattern:  /spectacle/create
+    defaults: { _controller: LteSpectacleBundle:Default:create }
+
+lte_spectacle_detail:
+    pattern:  /spectacle/detail/{spectacle_id}
+    defaults: { _controller: LteSpectacleBundle:Default:detail }
+
+lte_spectacle_delete:
+    pattern:  /spectacle/delete/{spectacle_id}
+    defaults: { _controller: LteSpectacleBundle:Default:delete }

@@ -1,0 +1,4 @@
+lte_spectacle:
+    resource: "@LteSpectacleBundle/Resources/config/routing.yml"
+    prefix:   /
+
