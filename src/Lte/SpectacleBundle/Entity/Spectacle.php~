@@ -49,7 +49,7 @@ class Spectacle
 	protected $lieu;
 
 	/**
-	 * @ORM\Column(type="string",length=255)
+	 * @ORM\Column(type="string",length=255,nullable=true)
 	 */
 	protected $adresse;
 
@@ -59,7 +59,7 @@ class Spectacle
 	protected $ville;
 
 	/**
-	 * @ORM\Column(type="string",length=5)
+	 * @ORM\Column(type="string",length=5,nullable=true)
 	 */
 	protected $code_postal;
 
@@ -255,5 +255,28 @@ class Spectacle
     public function getDateSpectacle()
     {
         return $this->date_spectacle;
+    }
+
+    /**
+     * Set date_spectacle_fin
+     *
+     * @param \DateTime $dateSpectacleFin
+     * @return Spectacle
+     */
+    public function setDateSpectacleFin($dateSpectacleFin)
+    {
+        $this->date_spectacle_fin = $dateSpectacleFin;
+
+        return $this;
+    }
+
+    /**
+     * Get date_spectacle_fin
+     *
+     * @return \DateTime 
+     */
+    public function getDateSpectacleFin()
+    {
+        return $this->date_spectacle_fin;
     }
 }

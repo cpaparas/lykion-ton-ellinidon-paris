@@ -4,6 +4,7 @@ namespace Lte\SpectacleBundle\Controller;
 
 use Lte\SpectacleBundle\Entity\Spectacle;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
@@ -13,23 +14,67 @@ class DefaultController extends Controller
         return $this->render('LteSpectacleBundle:Default:index.html.twig');
     }
 
-    public function createAction() 
+    public function newAction(Request $request) 
     {
     	$spectacle = new Spectacle();
-    	$spectacle->setTitle("Pâques en corse");
-    	$spectacle->setNbrDanseurs("8");
-    	$spectacle->setDescription("Pâques à la grecque à Carghèse");
-    	$spectacle->setLieu("Carghèse");
-    	$spectacle->setAdresse("Place du village de Carghèse");
-    	$spectacle->setVille("Carghèse");
-    	$spectacle->setCodePostal("2A");
-    	$spectacle->setDateSpectacle(date_create(date("Y-m-d",mktime(0,0,0,3,31,2013))));
+    	
+    	$form = $this->createFormBuilder($spectacle)
+    		->add('title')
+    		->add('description','textarea')
+    		->add('nbr_danseurs')
+    		->add('date_spectacle','date')
+    		->add('date_spectacle_fin','date')
+    		->add('lieu')
+    		->add('adresse')
+    		->add('ville')
+    		->add('code_postal')
+    		->add('save','submit')
+    		->getForm();
 
-    	$em = $this->getDoctrine()->getManager();
-	    $em->persist($spectacle);
-	    $em->flush();
+    	$form->handleRequest($request);
 
-	    return new Response('Created spectacle id '.$spectacle->getId());
+    	if ($form->isValid()) {
+    		$em = $this->getDoctrine()->getManager();
+		    $em->persist($spectacle);
+		    $em->flush();
+
+		    return $this->redirect($this->generateUrl('lte_spectacle_homepage'));
+    	}
+
+    	return $this->render('LteSpectacleBundle:Default:new.html.twig',array('form'=>$form->createView(),));
+
+    }
+
+    public function editAction($spectacle_id, Request $request)
+    {
+    	$spectacle = $this->getDoctrine()
+        ->getRepository('LteSpectacleBundle:Spectacle')
+        ->find($spectacle_id);
+
+        $form = $this->createFormBuilder($spectacle)
+    		->add('title')
+    		->add('description','text')
+    		->add('nbr_danseurs')
+    		->add('date_spectacle','date')
+    		->add('date_spectacle_fin','date')
+    		->add('lieu')
+    		->add('adresse')
+    		->add('ville')
+    		->add('code_postal')
+    		->add('save','submit')
+    		->getForm();
+
+    	$form->handleRequest($request);
+
+    	if ($form->isValid()) {
+    		$em = $this->getDoctrine()->getManager();
+		    $em->persist($spectacle);
+		    $em->flush();
+
+		    return $this->redirect($this->generateUrl('lte_spectacle_homepage'));
+    	}
+
+    	return $this->render('LteSpectacleBundle:Default:new.html.twig',array('form'=>$form->createView(),));
     }
 
     public function detailAction($spectacle_id)
@@ -43,7 +88,7 @@ class DefaultController extends Controller
 	            'No spectacle found for id '.$spectacle_id
 	        );
 	    }
-	    var_dump($spectacle);
+	    
     	return new Response('View spectacle id '.$spectacle->getId());
     }
 
@@ -56,5 +101,14 @@ class DefaultController extends Controller
     	$em->flush();
 
     	return new Response('Delete spectacle id '.$spectacle_id);
+    }
+
+    public function listAction()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$spectacle = $em->getRepository('LteSpectacleBundle:Spectacle')->findAll();
+    	$em->flush();
+    	var_dump($spectacle);
+    	return new Response('Tableau');
     }
 }

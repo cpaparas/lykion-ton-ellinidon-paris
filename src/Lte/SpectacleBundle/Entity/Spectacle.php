@@ -49,7 +49,7 @@ class Spectacle
 	protected $lieu;
 
 	/**
-	 * @ORM\Column(type="string",length=255)
+	 * @ORM\Column(type="string",length=255,nullable=true)
 	 */
 	protected $adresse;
 
@@ -59,7 +59,7 @@ class Spectacle
 	protected $ville;
 
 	/**
-	 * @ORM\Column(type="string",length=5)
+	 * @ORM\Column(type="string",length=5,nullable=true)
 	 */
 	protected $code_postal;
 

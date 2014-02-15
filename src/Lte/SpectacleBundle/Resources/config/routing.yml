@@ -4,7 +4,11 @@ lte_spectacle_homepage:
 
 lte_spectacle_create:
     pattern:  /spectacle/create
-    defaults: { _controller: LteSpectacleBundle:Default:create }
+    defaults: { _controller: LteSpectacleBundle:Default:new }
+
+lte_spectacle_edit:
+    pattern:  /spectacle/edit/{spectacle_id}
+    defaults: {_controller: LteSpectacleBundle:Default:edit}
 
 lte_spectacle_detail:
     pattern:  /spectacle/detail/{spectacle_id}
@@ -13,3 +17,7 @@ lte_spectacle_detail:
 lte_spectacle_delete:
     pattern:  /spectacle/delete/{spectacle_id}
     defaults: { _controller: LteSpectacleBundle:Default:delete }
+
+lte_spectacle_list:
+    pattern:  /spectacle/list
+    defaults: { _controller: LteSpectacleBundle:Default:list }
