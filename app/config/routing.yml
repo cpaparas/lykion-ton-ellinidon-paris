@@ -1,0 +1,4 @@
+lykion_lykion:
+    resource: "@LykionLykionBundle/Resources/config/routing.yml"
+    prefix:   /
+
